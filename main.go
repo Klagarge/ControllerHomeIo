@@ -1,9 +1,10 @@
 package main
 
 import (
+	"ControllerGO/modbus"
 	"crypto/tls"
+	"crypto/x509"
 	"fmt"
-	"github.com/simonvetter/modbus"
 	"os"
 	"time"
 )
@@ -65,7 +66,7 @@ func main() {
 		}
 
 		// Load the server certificate authority
-		serverCertPool, err := modbus.LoadCertPool("CA-OT-Security.crt")
+		//serverCertPool, err := modbus.LoadCertPool("CA-OT-Security.crt")
 		if err != nil {
 			fmt.Printf("failed to load server certificate/CA: %v\n", err)
 			os.Exit(1)
@@ -75,7 +76,7 @@ func main() {
 		client, err = modbus.NewClient(&modbus.ClientConfiguration{
 			URL:           "tcp+tls://" + ip + ":5802",
 			TLSClientCert: &clientCert,
-			TLSRootCAs:    serverCertPool,
+			TLSRootCAs:    &x509.CertPool{},
 		})
 		if err != nil {
 			fmt.Printf("failed to start modbus TCP+TLS instance: %v\n", err)
@@ -109,17 +110,16 @@ func main() {
 	}
 
 	// Loop to check the alarm status
-	for {
+	for range 3 {
 		checkAlarm(client)
 		time.Sleep(250 * time.Millisecond)
 	}
 
-	/*
-		err = client.Close()
-		if err != nil {
-			fmt.Printf("failed to close connection: %v\n", err)
-		}
+	err = client.Close()
+	if err != nil {
+		fmt.Printf("failed to close connection: %v\n", err)
+	}
 
-		os.Exit(0)
-	*/
+	os.Exit(0)
+
 }
