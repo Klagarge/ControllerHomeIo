@@ -5,7 +5,7 @@ If any of these sensors are triggered, the program will send an alarm message.
 
 ## Prerequisites
 - Home I/O
-- The modbus interface for Home I/O : [Modbus2HomeIO](https://github.com/hei-synd-ot-security/Modbus2HomeIO)
+- The modbus interface for Home I/O : [Modbus2HomeIO](https://github.com/Klagarge/Modbus2HomeIO)
 
 ## Usage
 1. Run the Home I/O simulation
