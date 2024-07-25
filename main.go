@@ -1,7 +1,7 @@
 package main
 
 import (
-	"ControllerGO/modbus"
+	"ControllerGO/modbus-lib"
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
